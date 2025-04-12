@@ -14,10 +14,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -47,8 +49,10 @@ data class MenuItem(
 
 //val menuItems = listOf(MenuItem(option = "List", onClick = {}, route = "list"))
 val menuItems = listOf(
-    MenuItem("Bottom Bar", Icons.Default.VerticalDistribute, route = Screen.Products.route),
-    MenuItem("Favorites", Icons.Default.Favorite),
+    MenuItem("Ecommerce", Icons.Default.ShoppingCart, route = Screen.Products.route),
+    MenuItem("Bottom Nav", Icons.Default.VerticalDistribute, route = Screen.BottomNav.route),
+    MenuItem("ToDo", Icons.AutoMirrored.Filled.List, route = Screen.Todo.route),
+
     MenuItem("Orders", Icons.Default.ShoppingCart),
     MenuItem("Settings", Icons.Default.Settings),
     MenuItem("Logout", Icons.Default.ExitToApp)
@@ -59,46 +63,44 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController
 ) {
-    Column(
+
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        LazyColumn {
-            items(menuItems) { item ->
-
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable {  navController.navigate(item.route) }
-                            .padding(vertical = 16.dp, horizontal = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            imageVector = item.icon,
-                            contentDescription = item.title,
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                        Spacer(modifier = Modifier.width(16.dp))
-                        Text(
-                            text = item.title,
-                            style = MaterialTheme.typography.bodyLarge,
-                            modifier = Modifier.weight(1f)
-                        )
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                            contentDescription = "Navigate",
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                    HorizontalDivider(
-                        thickness = 1.dp,
-                        color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
-                        modifier = Modifier.padding(horizontal = 16.dp)
-                    )
-
+        items(menuItems) { item ->
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { navController.navigate(item.route) }
+                    .padding(vertical = 16.dp, horizontal = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = item.icon,
+                    contentDescription = item.title,
+                    tint = MaterialTheme.colorScheme.primary
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                Text(
+                    text = item.title,
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.weight(1f)
+                )
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                    contentDescription = "Navigate",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
+            HorizontalDivider(
+                thickness = 1.dp,
+                color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+
         }
     }
+
 }

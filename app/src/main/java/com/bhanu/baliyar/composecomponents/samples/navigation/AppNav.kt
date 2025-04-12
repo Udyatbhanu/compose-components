@@ -8,7 +8,9 @@ import androidx.navigation.compose.composable
 import com.bhanu.baliyar.composecomponents.samples.screens.DetailsScreen
 import com.bhanu.baliyar.composecomponents.samples.screens.HomeScreen
 import com.bhanu.baliyar.composecomponents.samples.screens.ListScreen
+import com.bhanu.baliyar.composecomponents.samples.screens.bottomnav.BottomNavScreen
 import com.bhanu.baliyar.composecomponents.samples.screens.ecommerce.ProductScreen
+import com.bhanu.baliyar.composecomponents.samples.screens.todo.TodoScreen
 
 
 sealed class Screen(val route: String) {
@@ -16,6 +18,9 @@ sealed class Screen(val route: String) {
     object List : Screen("list")
     object Details : Screen("details")
     object Products : Screen("products")
+    object BottomNav : Screen("bottom_nav")
+    object Todo : Screen("todo")
+
 }
 
 @Composable
@@ -47,6 +52,12 @@ fun AppNav(navController: NavHostController, modifier: Modifier = Modifier) {
             DetailsScreen(onBack = {
                 navController.popBackStack()
             })
+        }
+        composable(Screen.BottomNav.route) {
+            BottomNavScreen()
+        }
+        composable(Screen.Todo.route) {
+            TodoScreen()
         }
     }
 }
